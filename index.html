@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+        <div class="container">
+          <main class="dashboard">
+                <h1>My Bookmarks</h1>
+                
+                    <button type="button">New Bookmark</button>
+                    <input type="dropdown" id="filter-rating">
+                  
+                    <select id="js-bookmark-rating">
+                            <option value="1star">1 Star</option>
+                            <option value="2stars">2 Stars</option>
+                            <option value="3stars">3 Stars</option>
+                            <option value="4stars">4 Stars</option>
+                            <option value="5stars">5 Stars</option>
+                     </select>
+              
+                  
+              <form id="js-bookmark-form">
+                <label for="title">Title:</label>
+                <input name="title" id="js-new-title" required/>
+                <br/>
+                <label for="url">Url:</label>
+                <input name="url" id="js-new-url" required/>
+                <br/>
+                <label for="desc">Desc:</label>
+                <input name="desc" id="js-new-desc"/>
+                <br/>
+                <label for="rating">Rating:</label>
+                <select name="rating">
+                  <option name="rating" value="1">1</option>
+                  <option name="rating" value="2">2</option>
+                  <option name="rating" value="3">3</option>
+                  <option name="rating" value="4">4</option>
+                  <option name="rating" value="5">5</option>
+                </select>
+                <br/><br/>
+                <input type="submit" class="js-bookmark-submit" value="Submit"/>
+              </form>
+              
+                
+              
+                 
+
+                      
+                  
+                </main>
+                <ul class="bookmark-list js-bookmark-list">
+                
+                    <li class="bookmark js-bookmark-item" data-id="one">
+                      <h3 class="bookmark-name">Sapiens by Yuval Harari</h3>
+                    <span class="stars">
+                        <span class="bookmark-rating rating-4">5 Stars</span>
+                    </span>
+                    <div class="expanded">
+                    <h4>Bill Gates' and Obama's Favorite Book</h4><span class="stars">
+                        
+                    <div class="bookmark-controls">
+                        <button class="view-bookmark-button js-bookmark-view" action="wsj.com">
+                          <span class="button-label">View</span>
+                        </button>
+                        <button class="bookmark-delete js-bookmark-delete">
+                          <span class="button-label">Remove</span>
+                        </button>
+                      </div>
+                    </div>
+                      
+                    
+                    
+                   
+                    
+                  </li>
+                  <li class="bookmark js-bookmark-item" data-id="one">
+                      <h3 class="bookmark-name">Wherever you go, There you are </h3>
+                      <span>4 Stars</span>
+                  </li>
+                  <li class="bookmark js-bookmark-item" data-id="one">
+                      <h3>Zen and the Art of Motorcycle</h3>
+                      <span>4 Stars</span>
+                    </li>
+                  </ul>
+              </div>
+    
+</body>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/cuid/1.3.8/browser-cuid.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="scripts/store.js"></script>
+  <script type="text/javascript" src="scripts/api.js"></script>
+  <script type="text/javascript" src="scripts/bookmarkList.js"></script>
+  <script type="text/javascript" src="scripts/index.js"></script>
+
+</html>
