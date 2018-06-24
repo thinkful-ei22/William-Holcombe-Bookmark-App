@@ -1,20 +1,24 @@
 'use strict';
-/*
+
 const Item = (function (){
 
-  function validateName(name){
+  /*function validateName(){
 
     if(name === '' ){
       throw new Error('Name does not Exist');
     }
 
   }
+  */
 
-  function create(name){
+  function create(){
     return{
       id:cuid(),
-      name:name,
-      checked:false
+      title,
+      desc,
+      url,
+      rating
+     
    
     };
 
@@ -24,7 +28,7 @@ const Item = (function (){
   //const foo = 'bar';
 
   return{
-    validateName, create
+    create
 
   };
 

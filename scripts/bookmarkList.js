@@ -7,22 +7,22 @@ const bookmarkList = (function(){
   const generateItemElement = function(bookmark) {
     //console.log('generate ran');
     return `
-   <li class="bookmark js-bookmark-item" data-bookmark-id="${bookmark.id}">
+   <li class="js-bookmark-item expandable" data-bookmark-id="${bookmark.id}">
                 <h3 class="bookmark-name">${bookmark.title}</h3>
               <span class="stars">
                   <span class="bookmark-rating rating-4">${bookmark.rating}</span>
               </span>
-              <div class="expanded">
+              <div class="desc-box ${bookmark.expand ? '' : 'hidden'}">
               <h4>${bookmark.desc}</h4>   
-              <div class="bookmark-controls">
-                  <button class="view-bookmark-button js-bookmark-view" action="wsj.com">
+      
+                  <button class="view-bookmark-button js-bookmark-view">
                     <span class="button-label">View</span>
                   </button>
                   <button class="bookmark-delete js-bookmark-delete">
                     <span class="button-label">Remove</span>
                   </button>
                 </div>
-                </div>            
+                         
       </li>`;
      
   };
@@ -32,14 +32,20 @@ const bookmarkList = (function(){
   };
 
   function render() {
-    const bookmarkListItemsString = generateItemsString(store.items);
+    let bookmarks2 = store.items;
+    if (store.ratingFilter >= 1){
+      bookmarks2 = store.items.filter(item => item.rating >= store.ratingFilter);
+    }
+    
+    console.log(bookmarks2);
+    const bookmarkListItemsString = generateItemsString(bookmarks2);
   
     // insert that HTML into the DOM
     $('.js-bookmark-list').html(bookmarkListItemsString);
   
   }
 
-  function addItemToShoppingList(itemName) {
+  /*function addItemToShoppingList(itemName) {
     //store.items.push({ id: cuid(), name: itemName, checked: false });
     try {
       Item.validateName(itemName);
@@ -51,7 +57,7 @@ const bookmarkList = (function(){
       console.log(`Cannot add item: ${error.message}`);
     }
   
-  }
+  }*/
     
   function handleNewItemSubmit() {
     $('#js-bookmark-form').submit(function (event) {
@@ -70,10 +76,10 @@ const bookmarkList = (function(){
       const descriptionInput= $('#js-new-desc').val();
       let newDescription = '';
       if(descriptionInput.length > 0){
-            newDescription = descriptionInput;
+        newDescription = descriptionInput;
       }
       else{
-            newDescription = 'A site like no other';
+        newDescription = 'A site like no other';
       }
       $('#js-new-title').val('');
       
@@ -81,20 +87,31 @@ const bookmarkList = (function(){
       $('#js-new-desc').val('');
       //reset rating?
       API.createItem(newTitle, newUrl, newDescription, newRating, (newItem) => {
-         
+        //addItem will attach extra info beyond what's relevant to the api
         store.addItem(newItem);
-          render();
+        console.log('correct version');
+        render();
       },() =>store.setError('Submission Error : Empty Field'));
     });
   }
+
+  function getItemIdFromElement(item1) {
+    return $(item1)
+      .closest('.js-bookmark-item')
+      .data('bookmark-id');
+  }
+
+  //<li class="js-bookmark-element" data-bookmark-id="${bookmark.id}">
 
   function handleDeleteItemClicked() {
     // like in `handleItemCheckClicked`, we use event delegation
     $('.js-bookmark-list').on('click', '.js-bookmark-delete', event => {
       // get the index of the item in store.items
+      
       const id = getItemIdFromElement(event.currentTarget);
       // delete the item
-      api.deleteItem(id, () => {
+      console.log(id);
+      API.deleteItem(id, () => {
         store.findAndDelete(id); 
         render();
       },
@@ -103,9 +120,48 @@ const bookmarkList = (function(){
     });
   }
 
+  function handleBookmarkExpand() {
+    $('.js-bookmark-list').on('click', '.expandable', function () {
+      const id = getItemIdFromElement(this);
+      const showBookmark = store.findById(id);
+      showBookmark.expand = !showBookmark.expand;
+      render();
+    });
+  }
+
+  function handleViewClicked(){
+    $('.js-bookmark-list').on('click', '.js-bookmark-view', function(){
+      //don't use e.currentTarget
+      let id = getItemIdFromElement(this);
+      let destination = store.findById(id);
+      console.log(destination);
+      const window1 = window.open(`${destination.url}`, '_blank');
+      window1.focus();
+
+
+
+
+    });
+  }
+  function handleRatingFilter(){
+    $('#dashboard').submit(function(event){
+      event.preventDefault();
+      const filter1 = $('.js-bookmark-filter').val();
+      console.log(filter1);
+      store.ratingFilter = filter1;
+     
+      render();
+    });
+
+  }
+
   function bindEventListeners() {
     handleNewItemSubmit();
-    console.log('bind worked');
+    handleDeleteItemClicked();
+    handleBookmarkExpand();
+    handleViewClicked();
+    handleRatingFilter();
+   
   }
 
   return{
@@ -113,6 +169,7 @@ const bookmarkList = (function(){
     //generateItemsString,
     bindEventListeners,
     render
+    
   };
 
 })();

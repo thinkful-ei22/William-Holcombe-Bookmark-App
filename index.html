@@ -8,20 +8,22 @@
 </head>
 <body>
         <div class="container">
-          <main class="dashboard">
+          <nav id="page-top">
                 <h1>My Bookmarks</h1>
                 
                     <button type="button">New Bookmark</button>
                     <input type="dropdown" id="filter-rating">
-                  
-                    <select id="js-bookmark-rating">
-                            <option value="1star">1 Star</option>
-                            <option value="2stars">2 Stars</option>
-                            <option value="3stars">3 Stars</option>
-                            <option value="4stars">4 Stars</option>
-                            <option value="5stars">5 Stars</option>
+                  <form id="dashboard">
+                    <select id="js-bookmark-filter">
+                            <option class="choice" value="1star">1 Star</option>
+                            <option class="choice" value="2stars">2 Stars</option>
+                            <option class="choice" value="3stars">3 Stars</option>
+                            <option class="choice" value="4stars">4 Stars</option>
+                            <option class="choice" value="5stars">5 Stars</option>
                      </select>
-              
+                     <input type="submit" class="js-rating-submit" value="Submit"/>
+                 </form>
+            </nav>
                   
               <form id="js-bookmark-form">
                 <label for="title">Title:</label>
@@ -34,7 +36,7 @@
                 <input name="desc" id="js-new-desc"/>
                 <br/>
                 <label for="rating">Rating:</label>
-                <select name="rating">
+                <select id="js-bookmark-rating" name="rating">
                   <option name="rating" value="1">1</option>
                   <option name="rating" value="2">2</option>
                   <option name="rating" value="3">3</option>
@@ -51,13 +53,13 @@
 
                       
                   
-                </main>
+                
                 <ul class="bookmark-list js-bookmark-list">
                 
                     <li class="bookmark js-bookmark-item" data-id="one">
                       <h3 class="bookmark-name">Sapiens by Yuval Harari</h3>
                     <span class="stars">
-                        <span class="bookmark-rating rating-4">5 Stars</span>
+                        <span class="bookmark-rating rating-4">4 Stars</span>
                     </span>
                     <div class="expanded">
                     <h4>Bill Gates' and Obama's Favorite Book</h4><span class="stars">

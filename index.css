@@ -87,3 +87,6 @@ select {
   margin-top: 20vh;
 }
 
+.hidden {
+  display: none;
+}
