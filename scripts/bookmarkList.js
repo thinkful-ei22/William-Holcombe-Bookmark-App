@@ -33,7 +33,8 @@ const bookmarkList = (function(){
 
   function render() {
     let bookmarks2 = store.items;
-    if (store.ratingFilter >= 1){
+    //console.log(parseInt(store.ratingFilter));
+    if (store.ratingFilter >= 2){
       bookmarks2 = store.items.filter(item => item.rating >= store.ratingFilter);
     }
     
@@ -58,6 +59,23 @@ const bookmarkList = (function(){
     }
   
   }*/
+
+/*
+  function validateTitle(title, url){
+    //const newBookmarkValidation = function(bookmark){
+      $('.error').remove();
+      if (title === '') {
+        $('.js-new-title').after('<span class="error">This field is required</span>');
+        throw new TypeError('Title is required');
+      }
+      if (url === '') {
+        $('.js-new-url').after('<span class="error">This field is required</span>');
+        throw new TypeError('URL starting with \'https://\' is required');
+      } 
+      return title, url;
+    };
+
+  */
     
   function handleNewItemSubmit() {
     $('#js-bookmark-form').submit(function (event) {
@@ -67,11 +85,7 @@ const bookmarkList = (function(){
       
       const newTitle = $('#js-new-title').val();
       const newUrl = $('#js-new-url').val();
-      //console.log(newRating);
-      //console.log(newUrl);
-      //console.log(newTitle);
-      //is this let a good idea?
-    
+    //validateTitle(newTitle, newUrl);
       
       const descriptionInput= $('#js-new-desc').val();
       let newDescription = '';
@@ -89,7 +103,6 @@ const bookmarkList = (function(){
       API.createItem(newTitle, newUrl, newDescription, newRating, (newItem) => {
         //addItem will attach extra info beyond what's relevant to the api
         store.addItem(newItem);
-        console.log('correct version');
         render();
       },() =>store.setError('Submission Error : Empty Field'));
     });
@@ -138,17 +151,22 @@ const bookmarkList = (function(){
       const window1 = window.open(`${destination.url}`, '_blank');
       window1.focus();
 
+function handleBookmarkValidation(){
 
+}
 
 
     });
   }
   function handleRatingFilter(){
-    $('#dashboard').submit(function(event){
+    $('#rating-form').on('click', '#rating-filter-button', function(){
+    
       event.preventDefault();
-      const filter1 = $('.js-bookmark-filter').val();
-      console.log(filter1);
-      store.ratingFilter = filter1;
+    
+      const filter1 = $('#js-bookmark-filter-select').val();
+      
+      store.ratingFilter = parseInt(filter1);
+      console.log(store.ratingFilter);
      
       render();
     });
@@ -161,6 +179,7 @@ const bookmarkList = (function(){
     handleBookmarkExpand();
     handleViewClicked();
     handleRatingFilter();
+    handleBookmarkValidation();
    
   }
 

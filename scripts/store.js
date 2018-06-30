@@ -22,7 +22,7 @@ const store = (function () {
 }];
 
 */
-  let ratingFilter = 1;
+  const ratingFilter = '';
 
   const addItem = function(item) {
     setExpand(item);

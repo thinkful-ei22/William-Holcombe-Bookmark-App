@@ -11,17 +11,19 @@
           <nav id="page-top">
                 <h1>My Bookmarks</h1>
                 
-                    <button type="button">New Bookmark</button>
+                    <h3>New Bookmark</h3> 
                     <input type="dropdown" id="filter-rating">
-                  <form id="dashboard">
-                    <select id="js-bookmark-filter">
+                  <form id="rating-form">
+                    <div>
+                    <select id="js-bookmark-filter-select">
                             <option class="choice" value="1star">1 Star</option>
                             <option class="choice" value="2stars">2 Stars</option>
                             <option class="choice" value="3stars">3 Stars</option>
                             <option class="choice" value="4stars">4 Stars</option>
                             <option class="choice" value="5stars">5 Stars</option>
                      </select>
-                     <input type="submit" class="js-rating-submit" value="Submit"/>
+                     <button type="submit" id="rating-filter-button">FILTER</button>
+                    </div>
                  </form>
             </nav>
                   
@@ -47,7 +49,10 @@
                 <input type="submit" class="js-bookmark-submit" value="Submit"/>
               </form>
               
-                
+              <div id="bookmark-validation-js">
+                  <div id="invalid-entry-toast">Must enter an address that includes 'https://' and a name.</div>
+  
+                </div>
               
                  
 
@@ -89,6 +94,8 @@
                     </li>
                   </ul>
               </div>
+
+              
     
 </body>
 
